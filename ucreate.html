@@ -1,0 +1,303 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>U Create</title>
+		
+		<link rel="stylesheet" type="text/css" href="./css/menu.css"  />
+		<link rel="stylesheet" type="text/css" href="./css/ucreate.css"  />
+		<link rel="stylesheet" type="text/css" href="./css/socialsidebar.css" />
+		<link rel="stylesheet" type="text/css" href="./css/image_preview_style.css" />
+		
+		<script src="./js/mouseover_popup.js" language="JavaScript" type="text/javascript"></script>
+		<script src="./js/component_handler.js" language="JavaScript" type="text/javascript"></script>
+		
+    <script type="text/javascript">
+        
+        var _startX = 0;            // mouse starting positions
+        var _startY = 0;
+        var _offsetX = 0;           // current element offset
+        var _offsetY = 0;
+        var _dragElement;           
+        var _oldZIndex = 0;         // we temporarily increase the z-index during drag
+        var _debug;    
+        var _countClick = 0;
+        InitDragDrop();
+        function InitDragDrop() {
+            //document.onclick = OnMouseClick;
+            //document.onMouseClick = OnMouseClick;
+        }
+
+		function OnMouseClickDown(e) {
+        //function OnMouseClick(e) {
+            debugger;
+            _debug = document.getElementById('debug');
+            // if first click this is zero
+            //if (_countClick == 0) {
+                // IE
+                if (e == null)
+                    e = window.event;
+
+                // IE uses srcElement, others use target
+                var target = e.target != null ? e.target : e.srcElement;
+
+                _debug.innerHTML = target.className == 'drag' ? 'draggable element clicked' : 'NON-draggable element clicked';
+
+                // for IE, left click == 1
+                // for Firefox, left click == 0
+                if ((e.button == 1 && window.event != null || e.button == 0) && target.className == 'drag') {
+                    // grab the mouse position
+                    _startX = e.clientX;
+                    _startY = e.clientY;
+
+                    // grab the clicked element's position
+                    _offsetX = ExtractNumber(target.style.left);
+                    _offsetY = ExtractNumber(target.style.top);
+
+                    // bring the clicked element to the front while it is being dragged
+                    _oldZIndex = target.style.zIndex;
+                    target.style.zIndex = 10000;
+
+                    // set _dragElement for next click
+                    _dragElement = target;
+
+                    // tell our code to start moving the element with the mouse
+                    document.onmousemove = OnMouseMove;
+
+                    // cancel out any text selections
+                    document.body.focus();
+
+                    // prevent text selection in IE
+                    document.onselectstart = function() { return false; };
+                    // prevent IE from trying to drag an image
+                    target.ondragstart = function() { return false; };
+                    
+                    //set click count to 1 so we know next click is to release
+                    _countClick = 1;
+                    // prevent text selection (except IE)
+                    return false;
+                }
+
+            //}
+
+			// uncomment me if you want to move elements by clicks instead of drag&drop style
+            /*if (_countClick == 1) {
+
+                if (_dragElement != null) {
+                    _dragElement.style.zIndex = _oldZIndex;
+
+                    // we're done with these events until the next OnMouseDown
+                    document.onmousemove = null;
+                    document.onselectstart = null;
+                    _dragElement.ondragstart = null;
+
+                    // this is how we know we're not dragging      
+                    _dragElement = null;
+
+                    _debug.innerHTML = 'mouse up';
+                }
+                
+                //set click count back to 0 so next we know it's first click again
+                _countClick = 0;
+            }*/
+
+        }
+		
+		function OnMouseClickUp(e) {
+                if (_dragElement != null) {
+                    _dragElement.style.zIndex = _oldZIndex;
+
+                    // we're done with these events until the next OnMouseDown
+                    document.onmousemove = null;
+                    document.onselectstart = null;
+                    _dragElement.ondragstart = null;
+
+                    // this is how we know we're not dragging      
+                    _dragElement = null;
+
+                    _debug.innerHTML = 'mouse up';
+                }
+                
+                //set click count back to 0 so next we know it's first click again
+                _countClick = 0;		
+		}
+
+        function OnMouseMove(e) {
+            if (e == null){
+				var e = window.event;
+			}
+				
+			// prevent leaving the canvas 
+			var containerElement = document.getElementById('customization_view');
+			var wrappingRectangle = containerElement.getBoundingClientRect();
+			//console.log(rect.top, rect.right, rect.bottom, rect.left);
+			if( e.clientX > wrappingRectangle.right || e.clientX < wrappingRectangle.left ||  e.clientY > wrappingRectangle.bottom || e.clientY < wrappingRectangle.top ){
+				//alert("Out!");
+			//	return;
+				return;
+			}
+			
+            // this is the actual "drag code"
+            _dragElement.style.left = (_offsetX + e.clientX - _startX) + 'px';
+            _dragElement.style.top = (_offsetY + e.clientY - _startY) + 'px';
+
+            //_debug.innerHTML = '(' + _dragElement.style.left + ', ' + _dragElement.style.top + ')';
+			_debug.innerHTML = '(' + e.clientX + ', ' + e.clientY + ')|(' + containerElement.style.left + ', ' + containerElement.style.top + ')';
+        }
+
+        function ExtractNumber(value) {
+            var n = parseInt(value);
+
+            return n == null || isNaN(n) ? 0 : n;
+        }
+
+        function OnMouseUp(e) {
+
+        }
+    </script >
+
+	 <style type="text/css">
+        .drag
+        {
+            position: relative;
+            height:50px;
+            width:50px;
+            background-color:#FF0000;
+            color:White;
+        }
+    </style>
+	</head>
+	
+<body>
+	<div style="display: none; position: absolute; z-index: 110; left: 30%; top: 10%; width: 15; height: 15" id="preview_div"></div>
+
+	<!--  menu -->
+	<div class="menu_wrapper">
+	
+		<ul class="menu_l" rel="sam1">
+			<li><a href="./whatisrealpp.html">Logotype</a></li>
+			<li><a href="/aboutus">About us</a></li>
+			<li><a href="./ucreate.html">You create</a></li>
+			<li><a href="./finalproducts.html">Final products</a></li>
+			<li><a href="/news">News</a></li>
+		</ul>		
+		<ul class="menu_r" rel="sam2">
+			<li><a href="./cart.html">Cart</a></li>
+			<li><a href="/login">Log in</a></li>
+			<li><a href="/join">Join</a></li>
+		</ul>
+	</div>
+	<!-- end of menu-->
+	
+	<!-- social buttons right sidebar -->
+	<div id="social_buttons_wrapper">
+			FB<br />
+			Tweet<br />
+			Azet<br />
+			:P
+	</div>
+	
+	<!-- content -->
+	<div id="content">
+<pre id="debug">Debug </pre>
+	
+		<div id="creator_wrapper">
+			<div id="components_bar">
+				<div id="upper_part" class="components_bar_section">
+					<div id="info">Some info about selected product</div>
+					<div id="product_selection">Some products to be selected: <br />
+						<select>
+							<option value="volvo">Taka bunda</option>
+							<option value="saab">Hentaka bunda</option>
+							<option value="opel">Onaka bunda</option>
+							<option value="audi">Inajaka bunda</option>
+						</select>
+					</div>
+					<div id="size_selection">Some sizes to be selected: <br />
+						<select>
+							<option value="volvo">S</option>
+							<option value="saab">M</option>
+							<option value="opel">L</option>
+							<option value="audi">XL</option>
+						</select>					
+					</div>
+				</div>
+				<div class="hr">
+				</div>
+				<div id="lower_part" class="components_bar_section">
+					<div id="product_part_change">Choose part of a product to be edited</div>
+					<div id="product_component_types">Choose a component type</div>
+					<div id="product_components">Choose a component:</div>
+					<div id="component_icons_wrapper">
+						<div class="icon">
+							<!--a href="images/klematis_big.htm" -->
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>
+						<div class="icon">
+							<img src="images/pocket.jpg" alt="Klematis" onmouseover="showtrail('images/pocket_detail.jpg', 'Psychopaticky zips',526,255)" onmouseout="hidetrail()" onclick="addComponentOnUserClick('images/pocket.jpg')" />
+						</div>					
+					</div>
+				</div>
+			</div>
+			<div id="customization_view">360 stupnovy pohlad dookola
+				<div id="canvas_components_container">
+				</div>
+				<div id="controls_wrapper">
+					<div id="control_right">vpravo</div>
+					<div id="control_left">vlavo</div>
+					<div id="control_Safe">ULOZ</div>
+					<div id="control_zoom">zoom</div>
+					<div id="control_share">sharuj</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- footer -->
+	<div id="footer">
+		Footer 50 px
+	</div>
+
+</body>
+</html>

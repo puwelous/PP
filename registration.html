@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Registration</title>
+        <link rel="stylesheet" type="text/css" href="./css/menu.css"  />
+        <link rel="stylesheet" type="text/css" href="./css/footer.css"  />
+        <link rel="stylesheet" type="text/css" href="./css/finalproducts.css"  />
+        <link rel="stylesheet" type="text/css" href="./css/socialsidebar.css" />
+
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js' type='text/javascript'></script>
+        <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+        <script src="./js/validate.min.js" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+                //                if (document.addEventListener) {
+                //                    // IE9, Chrome, Safari, Opera
+                //                    document.addEventListener("mousewheel", MouseWheelHandler, false);
+                //                    // Firefox
+                //                    document.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+                //                }
+                //                // IE 6/7/8
+                //                else document.attachEvent("onmousewheel", MouseWheelHandler);
+                //
+                //                var defaultAnimationStep = 100;
+                //                //var animationStep = 100;
+                //
+                //                function MouseWheelHandler(e) {
+                //
+                //                    // cross-browser wheel delta
+                //                    var e = window.event || e; // old IE support
+                //                    //var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+                //                    //alert('e.wheelDelta = ' + e.wheelDelta + '-e.detail = ' + (-e.detail));
+                //                    var delta = (e.wheelDelta || -e.detail);
+                //
+                //                    //$(".gallery_row_wrapper").style.width = Math.max(50, Math.min(800, myimage.width + (30 * delta))) + "px";
+                //                    //                    var x = $(".gallery_row_wrapper").offset().left;
+                //                    //                    x = x + delta;
+                //                    //                    $(".gallery_row_wrapper").css({left:x});
+                //                    
+                //                    // check actual position of a row wrapper, in case of attempt to move left
+                //                    // further than gallery_wrapper' most left position, move it to the beginning
+                //                    if( $(".gallery_row_wrapper").offset().left + delta > 0 ){
+                //                        //alert( $(".gallery_row_wrapper").offset().left + ' ' + delta);
+                //                        //return false;
+                //                        delta = -$(".gallery_row_wrapper").offset().left ;
+                //                    }else if( $(".gallery_row_wrapper").width() + $(".gallery_row_wrapper").offset().left + delta + 2 <  $( window ).width() ){
+                //                        //delta = - 1 * ($(".gallery_row_wrapper").width() + $(".gallery_row_wrapper").offset().left - $( window ).width()) ;
+                //                        //alert( $(".gallery_row_wrapper").width() + ", " + $(".gallery_row_wrapper").offset().left);
+                //                        return false;
+                //                    }
+                //                   
+                //                    if( $('.gallery_row_wrapper').is(':animated') ) {
+                //                        // animation is already running, ingore mouse wheel event
+                //                        //animationStep -= 50;
+                //                    }else{
+                //                        // animate wrapper
+                //                        $(".gallery_row_wrapper").animate({
+                //                            left: ("+=" + delta)
+                //                        }, defaultAnimationStep);
+                //                        //animationStep = defaultAnimationStep;
+                //                    }
+                //                    
+                //                    return false;
+                //                }
+                //
+                //
+                //
+                $("#footer_switcher_wrapper").click( function(){
+                                    
+                    $('#footer').toggleClass( "f_active" );
+                    $('.footer_l').toggleClass("active");
+                    $('#footer').toggleClass( "f_inactive" );
+                    $('.footer_l').toggleClass("inactive");
+                    
+                    $('.text_light.smaller').toggleClass("black");
+                    $('.text_light.smaller').toggleClass("pp_dark_gray");
+                    
+                    $('#footer_switcher').toggleClass("active");
+                    $('#footer_switcher').toggleClass("inactive");
+                });
+  
+            });
+        </script>
+    </head>
+    <body>
+        <!--  menu -->
+        <div id="menu_wrapper">
+
+            <ul class="menu_l">
+                <li><a href="./whatisrealpp.html" class="upper_cased" ></a></li>
+                <li><a href="./ucreate.html" class="text_light red_on_hover upper_cased">u create</a></li>
+                <li><a href="./finalproducts.html" class="text_light red_on_hover upper_cased">final products</a></li>
+            </ul>
+            <ul class="menu_r">
+                <li id="m_help"><a href="./login" class="text_light red_on_hover upper_cased">en / sk</a></li>
+                <li id="m_registration"><a href="./cart.html" class="text_light red_on_hover upper_cased">shopping cart</a></li>
+                <li id="m_language"><a href="./login.html" class="text_light red_on_hover upper_cased">log in</a></li>
+                <li id="m_cart"><a href="./cart.html" class="text_light red_on_hover upper_cased">contact</a></li>
+            </ul>
+        </div>
+        <!-- end of menu-->
+        <!--red line-->
+        <div class="red_line">
+        </div>
+        <!--end of red line-->
+
+
+
+        <!-- content -->
+        <div id="content">
+
+            <div class="content_wrapper">
+
+                <div class="container">
+                    <!-- Title -->
+                    <div id="registration_title" class="title upper_cased black">
+                        Registration
+                    </div>
+                    <div id="error_output_section" class="text_medium capitalized_first_only pp_red">
+                    </div>
+                    <form name="pp_form_name" action="#" method="POST">
+                        <div class="text_fields_wrapper">
+
+                            <div class="text_field_wrapper left">
+                                <ul>
+                                    <li>
+                                        <label for="tf_nick" class="required">nick</label>
+                                        <input type="text" id="tf_nick" name="tf_nick" placeholder="Nick" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_first_name" class="required">first name</label>
+                                        <input type="text" id="tf_first_name" name="tf_first_name" placeholder="First name" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_last_name" class="required">last name</label>
+                                        <input type="text" id="tf_last_name" name="tf_last_name" placeholder="Last name" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_email_address" class="required">email address</label>
+                                        <input type="email" id="tf_email_address" name="tf_email_address" placeholder="john_doe@example.com" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_password_base" class="required">password</label>
+                                        <input type="password" id="tf_password_base" name="tf_password_base" value="" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_password_confirm" class="required">confirm password</label>
+                                        <input type="password" id="tf_password_confirm" name="tf_password_confirm" value="" size="32" />
+                                    </li>                                 
+                                </ul>
+                            </div>
+                            <div class="text_field_wrapper right">
+                                <ul>
+                                    <li>
+                                        <label for="tf_gender" class="required">gender</label>
+                                        <input type = "radio"
+                                               name = "radSize"
+                                               id = "male"
+                                               value = "small"
+                                               checked = "checked" />
+                                        <label for = "male">male</label>
+                                        <input type = "radio"
+                                               name = "radSize"
+                                               id = "female"
+                                               value = "small"
+                                               checked = "checked" />
+                                        <label for = "female">female</label>                                    
+                                    </li>
+                                    <li>
+                                        <label for="tf_first_name" >delivery address</label>
+                                        <input type="text" id="tf_delivery_addres" name="tf_delivery_addres" value="" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_address" class="required">address</label>
+                                        <input type="text" id="tf_address" name="tf_address" value="" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_city" class="required">city</label>
+                                        <input type="text" id="tf_city" name="tf_city" value="" size="32" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_zip" class="required">zip</label>
+                                        <input type="number" id="tf_zip" name="tf_zip" />
+                                    </li>
+                                    <li>
+                                        <label for="tf_country" class="required">country</label>
+                                        <input type="text" id="tf_country" name="tf_country" value="" size="32" />
+                                    </li>                                 
+                                </ul>                            
+                            </div>
+
+                        </div>
+                        <div style="clear:both;"></div>
+                        <div class="bottom_wrapper">
+                            <div class="bottom_wrapper left">
+                                <span class="text_light smaller pp_light_gray">By clicking SIGN UP, you are agreeing to <a href="../policy.html" target="_blank">POWPORN Policy</a> and <a href="../terms.html" target="_blank">Terms &amp; Conditions</a></span>
+                            </div>
+                            <div class="bottom_wrapper right">
+                                <!--<input type="button" value="SIGN UP"/>-->
+                                <div class="right_pp_button_wrapper">
+                                    <button class="pp_button" type="submit" name="submit">SIGN UP</button>
+                                </div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div><!-- end of content-->
+
+        <div class="overlay-bg">
+            <div class="overlay-content">
+                <h1 class="upper_cased text_medium pp_red">thank you!</h1>
+                <p class="text_regular smaller">You will recieve registration mail on address <span id="user_email">@</span></p>
+                <button class="pp_button upper_cased">login</button>
+            </div>
+        </div> 
+
+
+        <!--                 footer -->
+        <div id="footer" class="f_active">
+            <div class="colmask threecol">
+                <div class="colmid">
+                    <div class="colleft">
+                        <div class="col1">
+                            <!--Column 1 start--> 
+                            <div class="text_wrapper_middle_part">
+                                <div class="text_light smaller white">Copyright &copy; 2013 Powporn. All rights reserved.</div>
+                            </div>
+                            <!--Column 1 end--> 
+                        </div>
+                        <div class="col2">
+                            <!--Column 2 start--> 
+                            <ul class="footer_l">
+                                <li><a href="./whatisrealpp.html" class="text_light red_on_hover capitalized" >rules</a></li>
+                                <li><a href="./ucreate.html" class="text_light red_on_hover capitalized">payment</a></li>
+                                <li><a href="./finalproducts.html" class="text_light red_on_hover capitalized">shipping services</a></li>
+                                <li><a href="./finalproducts.html" class="text_light red_on_hover capitalized">CLIENT SERVICES</a></li>
+                            </ul>
+                            <!--Column 2 end--> 
+                        </div>
+                        <div class="col3">
+                            <!--Column 3 start--> 
+                            <div id="footer_switcher_wrapper">
+                                <div id="footer_switcher" class="active"> 
+                                </div>
+                            </div>
+                            <!--Column 3 end--> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+            //TODO: do a callback to check if such a nick or email adress already exists for example
+            var validator = new FormValidator('pp_form_name', [{
+                    name: 'tf_nick',
+                    display: '\"Nick\"',    
+                    rules: 'required'
+                }, {
+                    name: 'tf_first_name',
+                    display: '\"First Name\"',    
+                    rules: 'required'
+                }, {
+                    name: 'tf_last_name',
+                    display: '\"Last Name\"',    
+                    rules: 'required'
+                }, {
+                    name: 'tf_email_address',
+                    display: '\"Email Address\"',
+                    rules: 'valid_email'
+                }, {
+                    name: 'tf_password_base',
+                    display: '\"Password\"',
+                    rules: 'required'
+                }, {
+                    name: 'tf_password_confirm',
+                    display: '\"Confirm Password\"',
+                    rules: 'required|matches[tf_password_base]'
+                }, {
+                    name: 'tf_address',
+                    display: '\"Address\"',
+                    rules: 'required'
+                }, {
+                    name: 'tf_city',
+                    display: '\"City\"',
+                    rules: 'required'
+                },{
+                    name: 'tf_zip',
+                    display: '\"ZIP\"',
+                    rules: 'required'
+                },{
+                    name: 'tf_country',
+                    display: '\"Country\"',
+                    rules: 'required'
+                }], function(errors, event) {
+                
+                if (errors.length < 0) {
+                    
+                    var errorString = '';
+         
+                    for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                        errorString += errors[i].message;
+                    }
+        
+                    var errorOutputDiv = document.getElementById("error_output_section");
+                    errorOutputDiv.innerHTML = errorString;
+                    //                    alert(errorString);
+                    //                    if (evt && evt.preventDefault) {
+                    //                        evt.preventDefault();
+                    //                    } else if (event) {
+                    //                        event.returnValue = false;
+                    //                    }
+                }else{
+                    //everything ok
+                    var validUserEmailElement = document.getElementById("user_email");
+                    var emailAddressElement = document.getElementById("tf_email_address");
+
+                    validUserEmailElement.innerHTML =  emailAddressElement.value;
+                    
+                    $('.overlay-bg').show();
+                }
+            });
+            
+        </script>
+
+    </body>
+</html>
